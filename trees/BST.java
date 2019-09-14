@@ -9,6 +9,9 @@ import java.util.Queue;
 import java.util.Stack;
 import java.util.TreeMap;
 
+//PreOrder - needs 1 stack,push root & process both of its children <push root,right,left>
+//PostOrder - needs 2 stacks,push root & process both of its children <push root,left,right>
+//InOrder - needs 1 stack,push root & process only one child <Push root,push left,next iteration push right>
 public class BST {
 	private static Map<Integer, List<Integer>> mapVerticalDistance = null;
 	private static Map<Integer, Integer> bottomViewMap = new TreeMap<Integer, Integer>(); // maintains keys in sorted
@@ -19,7 +22,7 @@ public class BST {
 		int data;
 		Node left;
 		Node right;
-		Node parent;
+		Node parent;// for LCA
 
 		Node(int data) {
 			this.data = data;
@@ -41,6 +44,7 @@ public class BST {
 
 	}
 
+	// https://www.techiedelight.com/insertion-in-bst/
 	public Node insertRec(Node root, int data) {
 
 		if (root == null) {
@@ -112,6 +116,7 @@ public class BST {
 	}
 
 	// https://www.techiedelight.com/postorder-tree-traversal-iterative-recursive/
+
 	public void postOrderRecursive(Node root) {
 		if (root != null) {
 			preOrderRecursive(root.left);
@@ -169,7 +174,7 @@ public class BST {
 		Node curr = root;
 
 		// process root & only one half of the node at each iteration(if-else)
-		while (curr != null && stack.size() > 0) {
+		while (curr != null && !stack.isEmpty()) {
 			if (curr != null) {
 				stack.push(curr);
 				curr = curr.left;
@@ -208,7 +213,9 @@ public class BST {
 
 	// need to use vertical distance - Iterative approach
 	// push each node along with its hd into the queue,construct map of hds as keys
-	// wd list of nodes in that hd as values
+	// with list of nodes in that hd as values
+	// https://www.techiedelight.com/vertical-traversal-binary-tree/
+	// https://makeinjava.com/vertical-order-traversal-binary-tree-java-recursive-example/
 	public static void verticalOrderUsingLevelorder(Node root) {
 		if (root == null) {
 			return;
@@ -351,6 +358,7 @@ public class BST {
 	// using horizontal distance computed using vertical order traversal
 	// instead of list of nodes stored against a hd, we always replace the value
 	// with last or latest node
+	// poll & put in map
 	public static void printBottomView(Node root) {
 		if (root == null) {
 			return;
@@ -437,32 +445,42 @@ public class BST {
 			q.add(null);
 
 			while (!q.isEmpty()) {
+
+				if (height == level - 1) {
+					// System.out.println("Node at level::::" + level + ":::::" + temp.data);
+					break;
+				}
+
 				Node temp = q.poll();
 
-				if (temp == null) {
-					if (!q.isEmpty()) {
-						q.add(null);
-					}
+				if (temp == null && !q.isEmpty()) {
 
+					q.add(null);
 					height = height + 1;
 					System.out.println("Current Height::::" + height);
+
 				} else {
+
 					if (temp.left != null) {
 						q.add(temp.left);
 					}
 					if (temp.right != null) {
 						q.add(temp.right);
 					}
-					if (height == level - 1) {
-						System.out.println("Node at level::::" + level + ":::::" + temp.data);
-					}
 
 				}
+			}
+
+			while (!q.isEmpty()) {
+				Node temp = q.poll();
+				if (temp != null)
+					System.out.println(temp.data);
 			}
 		}
 	}
 
 	// recursive
+	// https://javabypatel.blogspot.com/2015/12/diameter-of-binary-tree.html
 	public static int diameter(Node root) {
 		/* base case if tree is empty */
 		if (root == null)
@@ -499,15 +517,15 @@ public class BST {
 			return 0;
 		else {
 			/* compute the depth of each subtree */
-			int lDepth = height(node.left);
-			int rDepth = height(node.right);
+			int leftHeight = height(node.left);
+			int rightHeight = height(node.right);
 
 			/* use the larger one */
 			int h;
-			if (lDepth > rDepth)
-				h = lDepth + 1;
+			if (leftHeight > rightHeight)
+				h = leftHeight + 1;
 			else
-				h = rDepth + 1;
+				h = rightHeight + 1;
 			return h;
 		}
 	}
@@ -517,8 +535,31 @@ public class BST {
 		if (x == null && y == null) {
 			return true;
 		}
+
+		// If only one is empty
+		if (x == null || y == null)
+			return false;
+
 		return (x != null && y != null) && (x.data == y.data) && checkIfIdenticalRecursive(x.left, y.left)
 				&& checkIfIdenticalRecursive(x.right, y.right);
+	}
+
+	// https://www.geeksforgeeks.org/check-if-two-trees-are-mirror/
+	public static boolean checkMirrorRecursive(Node a, Node b) {
+		/* Base case : Both empty */
+		if (a == null && b == null)
+			return true;
+
+		// If only one is empty
+		if (a == null || b == null)
+			return false;
+
+		/*
+		 * Both non-empty, compare them recursively Note that in recursive calls, we
+		 * pass left of one tree and right of other tree
+		 */
+		return (a != null && b != null) && (a.data == b.data) && checkMirrorRecursive(a.left, b.right)
+				&& checkMirrorRecursive(a.right, b.left);
 	}
 
 	// https://www.geeksforgeeks.org/iterative-function-check-two-trees-identical/
@@ -582,7 +623,7 @@ public class BST {
 
 		while (true) {
 			// iterative inorder traversal of 1st tree and
-			// reverse inoder traversal of 2nd tree
+			// reverse inorder traversal of 2nd tree
 			while (root1 != null && root2 != null) {
 				// if the corresponding nodes in the two traversal
 				// have different data values, then they are not
@@ -604,10 +645,8 @@ public class BST {
 				return false;
 
 			if (!st1.isEmpty() && !st2.isEmpty()) {
-				root1 = st1.peek();
-				root2 = st2.peek();
-				st1.pop();
-				st2.pop();
+				root1 = st1.pop();
+				root2 = st2.pop();
 
 				/*
 				 * we have visited the node and its left subtree. Now, it's right subtree's turn
@@ -624,25 +663,8 @@ public class BST {
 			else
 				break;
 		}
-		return true;
+		return false;
 
-	}
-
-	// https://www.geeksforgeeks.org/check-if-two-trees-are-mirror/
-	public static boolean checkMirrorRecursive(Node a, Node b) {
-		/* Base case : Both empty */
-		if (a == null && b == null)
-			return true;
-
-		// If only one is empty
-		if (a == null || b == null)
-			return false;
-
-		/*
-		 * Both non-empty, compare them recursively Note that in recursive calls, we
-		 * pass left of one tree and right of other tree
-		 */
-		return a.data == b.data && checkMirrorRecursive(a.left, b.right) && checkMirrorRecursive(a.right, b.left);
 	}
 
 	// https://www.techiedelight.com/find-ancestors-of-given-node-binary-tree/
@@ -664,7 +686,6 @@ public class BST {
 				System.out.println(targetParent.data);
 			} else {
 				i = false;
-				return;
 			}
 			target = targetParent;
 		}
@@ -729,7 +750,7 @@ public class BST {
 	// https://www.geeksforgeeks.org/lowest-common-ancestor-in-a-binary-tree-set-2-using-parent-pointer/
 	public static Node LCA(Node root, Node n1, Node n2) {
 
-		// Creata a map to store ancestors of n1
+		// Create a map to store ancestors of n1
 		Map<Node, Boolean> ancestors = new HashMap<Node, Boolean>();
 
 		// Insert n1 and all its ancestors in map
@@ -869,7 +890,8 @@ public class BST {
 	}
 
 	// https://www.youtube.com/watch?v=nPtARJ2cYrg
-	// A tree is a directed acyclic graph,hence BFS-queue,but we need to convert it
+	// A tree is a directed acyclic connected graph,hence BFS-queue,but we need to
+	// convert it
 	// into an undirected graph to keep a track of the parent also.SO v need a
 	// hashtable
 
@@ -884,6 +906,7 @@ public class BST {
 
 		int currentLayer = 0;
 		Queue<Node> q = new LinkedList<>();
+		// maintain visited nodes similar to BFS in graph/Maze
 		HashMap<Node, Boolean> hm = new HashMap<>();
 		q.add(startNode);
 		q.add(null);
@@ -912,17 +935,20 @@ public class BST {
 
 				currentLayer = currentLayer + 1;
 			} else {
+				// if left child isnt null & unvisited
 				if (temp.left != null && !hm.containsKey(temp.left)) {
 					hm.put(temp.left, true);
 					q.add(temp.left);
 
 				}
+				// if right child isnt null & unvisited
 				if (temp.right != null && !hm.containsKey(temp.right)) {
 					hm.put(temp.right, true);
 					q.add(temp.right);
 
 				}
 
+				//add parent of current node to queue & mark it as visited
 				if (!hm.containsKey(parentMap.get(temp))) {
 					hm.put(parentMap.get(temp), true);
 					q.add(parentMap.get(temp));
@@ -935,6 +961,7 @@ public class BST {
 
 	}
 
+	// using level order traversal
 	private static HashMap<Node, Node> constructParentMap(Node root) {
 		HashMap<Node, Node> parentMap = new HashMap<>();
 		if (root == null) {
@@ -1007,6 +1034,57 @@ public class BST {
 		// return root of the constructed tree
 		return root;
 	}
+
+	// https://www.techiedelight.com/determine-given-binary-tree-is-a-bst-or-not/
+	// using inorder traversal and tracking last variable to check if its in sorted
+	// order
+	public boolean isBST(Node root) {
+		return false;
+	}
+
+	// https://www.techiedelight.com/find-maximum-sum-root-to-leaf-path-binary-tree/
+	// Use post order traversal(since it is a bottom Up traversal) & maintain
+	// maxSumSoFar
+	public static void findMaxSumPath(Node root) {
+
+	}
+
+//	// https://www.techiedelight.com/print-corner-nodes-every-level-binary-tree/
+//	printCornerNodes(){
+//		
+//	}
+//
+//	// https://www.techiedelight.com/place-convert-given-binary-tree-to-doubly-linked-list/
+//	convertBT_DLL(){
+//		
+//	}
+//
+//	// https://www.techiedelight.com/print-diagonal-traversal-binary-tree/
+//	diagonalTraversal(){
+//		
+//	}
+
+//	//https://www.techiedelight.com/check-given-binary-tree-sum-tree-not/
+//	//use post order traversal(bottom up) and check if subtrees sum is the value of root
+//	checkIfSumTree(){
+//		
+//	}
+//
+//	// https://www.techiedelight.com/inplace-convert-a-tree-sum-tree/
+//	convertBT_SumTree(){
+//		
+//	}
+//
+//	//https://www.techiedelight.com/reverse-level-order-traversal-binary-tree/
+//	//use queue & stack
+//	reverseLevelOrderTraversal() {
+//		
+//	}
+//
+//	// https://www.techiedelight.com/print-all-paths-from-root-to-leaf-nodes-binary-tree/
+//	allPathsFromRootToLeaf(){
+//		
+//	}
 
 	public static void main(String args[]) {
 

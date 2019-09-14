@@ -653,6 +653,12 @@ public class LL {
 
 		return head;
 	}
+	
+	//https://www.techiedelight.com/rearrange-linked-list-specific-manner-linear-time/
+	rearrangeLL
+	
+	//https://www.techiedelight.com/delete-every-n-nodes-linked-list-skipping-m-nodes/
+	deleteNnodesSkippingMnodes
 
 	public static void main(String args[]) {
 		Node head = new Node(10);

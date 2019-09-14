@@ -371,6 +371,16 @@ public class BinarySearch {
 			return getFloor(A, left, mid - 1, x);
 		}
 	}
+	
+	//https://www.techiedelight.com/search-element-circular-sorted-array/
+	searchInCircularSortedArray(){
+		
+	}
+	
+	//https://www.techiedelight.com/find-number-rotations-circularly-sorted-array/
+	noOfTimesSortedArrayIsRotated(){
+		
+	}
 
 	public static void main(String args[]) {
 		int a[] = { 2, 5, 5, 5, 6, 6, 8, 9, 9, 9 };
