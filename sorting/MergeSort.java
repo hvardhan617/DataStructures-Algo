@@ -18,6 +18,7 @@ public class MergeSort {
 
 	private static int[] mergeSort(int[] a) {
 
+		// base case
 		if (a.length == 1) {
 			return a;
 		}

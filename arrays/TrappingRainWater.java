@@ -1,6 +1,8 @@
 package arrays;
 
 //https://www.techiedelight.com/trapping-rain-water-within-given-set-bars/
+//calc max height bar on left & right for every bar.
+//amt of water stored ontop of that bar=min(leftBar,rightBar)-height of current bar
 public class TrappingRainWater {
 
 	// Function to find amount of water that can be trapped within

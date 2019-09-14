@@ -1,6 +1,7 @@
 package arrays;
 
 //https://www.techiedelight.com/find-equilibrium-index-array/
+//have left[] aux array & precompute it & compare it wd right[]
 public class EquilibriumIndex {
 
 	// Function to find equilibrium index of an array

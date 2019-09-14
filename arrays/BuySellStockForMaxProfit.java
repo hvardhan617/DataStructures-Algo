@@ -10,13 +10,16 @@ class Interval {
 	int buy, sell;
 }
 
-public class BuySellStackForMaxProfit {
+//can use maxdiffbetween2 elements in case only one transaction is allowed
+//incase of multiple transactions, use pair of localMax & localMin
+public class BuySellStockForMaxProfit {
 
 	public static void main(String args[]) {
 
 //		int stockPrices[] = { 7, 6, 5, 4, 3 };
-		int stockPrices[] = { 7, 1, 5, 3, 6, 4 };
-		System.out.println(buySellStock(stockPrices));
+	//	int stockPrices[] = { 7, 1, 5, 3, 6, 4 };
+		int stockPrices[] = { 100, 180, 260, 310, 40, 535, 695 }; 
+		System.out.println(maxProfit(stockPrices));
 	}
 
 	// buy only when stock price is least,hence we need a min variable & while
