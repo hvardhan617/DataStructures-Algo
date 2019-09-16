@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 //https://www.techiedelight.com/find-kth-largest-element-array/
+//https://stackoverflow.com/questions/25569625/sorting-priority-queue-in-java
 public class KthLargestElement {
 
 	// Function to find the K'th largest element in the

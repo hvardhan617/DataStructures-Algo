@@ -4,7 +4,20 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 
 //https://www.techiedelight.com/find-shortest-safe-route-field-sensors-present/
-public class CrossFieldOfSensors {
+public class CrossFieldWithSensors {
+
+	// queue node used in BFS
+	static class Node {
+		// (x, y) represents a position inside field
+		// dist represent its minimum distance from the source
+		int x, y, dist;
+
+		Node(int x, int y, int dist) {
+			this.x = x;
+			this.y = y;
+			this.dist = dist;
+		}
+	};
 
 	// M x N field
 	private static final int M = 10;
@@ -37,6 +50,7 @@ public class CrossFieldOfSensors {
 		// create an empty queue
 		Queue<Node> q = new ArrayDeque<>();
 
+		// enqueue all sources
 		// process every cell of first column
 		for (int r = 0; r < M; r++) {
 			// if the cell is safe, mark it as visited and
@@ -75,36 +89,37 @@ public class CrossFieldOfSensors {
 	}
 
 	// Find Shortest Path from first column to last column in given field
-	public static int shortestDistance(int[][] field)
-		{
-			// r[] and c[] details all 8 possible movements from a cell
-			// (top, right, bottom, left and 4 diagonal moves)
-			int r[] = { -1, -1, -1,  0, 0,  1, 1, 1 };
-			int c[] = { -1,  0,  1, -1, 1, -1, 0, 1 };
+	public static int shortestDistance(int[][] field) {
+		// r[] and c[] details all 8 possible movements from a cell
+		// (topleft, top, topRight, left,right,bottomLeft,bottom,bottomRight)
+		int r[] = { -1, -1, -1, 0, 0, 1, 1, 1 };
+		int c[] = { -1, 0, 1, -1, 1, -1, 0, 1 };
 
-			// mark adjacent cells of sensors as unsafe
-			for (int i = 0; i < M; i++) {
-				for (int j = 0; j < N; j++) {
-					for (int k = 0; k < 8; k++) {
-						if (field[i][j] == 0 && field[i + r[k]][j + c[k]] == 1 && isValid(i + r[k], j + c[k])) {
-							field[i + r[k]][j + c[k]] = Integer.MAX_VALUE;
-						}
+		// mark adjacent cells of sensors as unsafe
+		for (int i = 0; i < M; i++) {
+			for (int j = 0; j < N; j++) {
+				// look for 8 possible movements from each cell,if the cell is a sensor mark
+				// those 8 adjacent cells as unsafe
+				for (int k = 0; k < 8; k++) {
+					if (field[i][j] == 0 && isValid(i + r[k], j + c[k]) && field[i + r[k]][j + c[k]] == 1) {
+						field[i + r[k]][j + c[k]] = Integer.MAX_VALUE;
 					}
 				}
 			}
-
-			// update the field
-			for (int i = 0; i < M; i++) {
-				for (int j = 0; j < N; j++) {
-					if (field[i][j] == Integer.MAX_VALUE) {
-						field[i][j] = 0;
-					}
-				}
-			}
-
-			// call BFS and return shortest distance found by it
-			return BFS(field);
 		}
+
+		// update the field
+		for (int i = 0; i < M; i++) {
+			for (int j = 0; j < N; j++) {
+				if (field[i][j] == Integer.MAX_VALUE) {
+					field[i][j] = 0;
+				}
+			}
+		}
+
+		// call BFS and return shortest distance found by it
+		return BFS(field);
+	}
 
 	// main function
 	public static void main(String[] args) {

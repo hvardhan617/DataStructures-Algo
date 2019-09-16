@@ -2,6 +2,10 @@ package greedy;
 
 //https://iq.opengenus.org/activity-selection-problem-greedy-algorithm/
 //https://www.geeksforgeeks.org/activity-selection-problem-greedy-algo-1/
+//The Activity Selection problem follows Greedy approach i.e.
+//at every step, we can make a choice that looks best at the moment(which ever activity finishes early) to get the optimal solution of the complete problem
+// If we sort elements based on their starting time, the activity with least starting time could take the maximum duration for completion,
+//therefore we won't be able to maximise number of activities.
 public class ActivitySelectionProblem {
 
 	// Prints a maximum set of activities that can be done by a single

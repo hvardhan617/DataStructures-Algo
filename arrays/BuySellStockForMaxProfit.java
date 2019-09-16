@@ -17,8 +17,8 @@ public class BuySellStockForMaxProfit {
 	public static void main(String args[]) {
 
 //		int stockPrices[] = { 7, 6, 5, 4, 3 };
-	//	int stockPrices[] = { 7, 1, 5, 3, 6, 4 };
-		int stockPrices[] = { 100, 180, 260, 310, 40, 535, 695 }; 
+		// int stockPrices[] = { 7, 1, 5, 3, 6, 4 };
+		int stockPrices[] = { 100, 180, 260, 310, 40, 535, 695 };
 		System.out.println(maxProfit(stockPrices));
 	}
 
@@ -64,12 +64,12 @@ public class BuySellStockForMaxProfit {
 
 	// Function to find maximum profit that can be earned by buying and
 	// selling shares any number of times
-	//https://www.techiedelight.com/maximum-profit-earned-buying-and-selling-shares/
+	// https://www.techiedelight.com/maximum-profit-earned-buying-and-selling-shares/
 	public static int maxProfit(int[] price) {
 		// store maximum profit gained
 		int profit = 0;
 
-		// initialize local minimum to first element's index
+		// track minimum price day
 		int j = 0;
 
 		// start from second element

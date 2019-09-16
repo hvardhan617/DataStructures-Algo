@@ -17,14 +17,14 @@ public class EggDroppingProblem {
 	 */
 	static int eggDrop(int n, int k) {
 		/*
-		 * A 2D table where entery eggFloor[i][j] will represent minimum number of
+		 * A 2D table where entry eggFloor[i][j] will represent minimum number of
 		 * trials needed for i eggs and j floors.
 		 */
 		int eggFloor[][] = new int[n + 1][k + 1];
 		int res;
 		int i, j, x;
 
-		// We need one trial for one floor and0 trials for 0 floors
+		// We need one trial for one floor and 0 trials for 0 floors
 		for (i = 1; i <= n; i++) {
 			eggFloor[i][1] = 1;
 			eggFloor[i][0] = 0;

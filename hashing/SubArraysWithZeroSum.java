@@ -9,6 +9,7 @@ import java.util.Map;
 //https://www.techiedelight.com/find-sub-array-with-0-sum/
 //subarray means contiguous subsequence
 //https://www.youtube.com/watch?v=aQdZ6hK5Ius
+//https://www.geeksforgeeks.org/print-all-subarrays-with-0-sum/
 //insert sum as key n index as value,whenever 0 sum is encountered,print the subarray range
 public class SubArraysWithZeroSum {
 
@@ -18,7 +19,7 @@ public class SubArraysWithZeroSum {
 		int[] B = { 3, 4, 0 };
 //		printallSubarraysWithZeroSum(A);
 		printallSubarrays(A);
-	//	System.out.println(checkForZeroSumSubarray(B));
+		// System.out.println(checkForZeroSumSubarray(B));
 
 	}
 
@@ -58,7 +59,7 @@ public class SubArraysWithZeroSum {
 		Map<Integer, List<Integer>> hashMap = new HashMap<>();
 
 		// insert (0, -1) pair into the map to handle the case when
-		// sub-array with 0 sum starts from index 0
+		// sub-array with 0 sum starts from index -1
 		insert(hashMap, 0, -1);
 
 		int sum = 0;

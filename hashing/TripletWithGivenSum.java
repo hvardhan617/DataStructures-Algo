@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 //https://www.techiedelight.com/find-triplet-given-with-given-sum/
+//create a hashmap with key as A[i] and value as i once by iterating the array.
+//Now have 2 loops to iterate the consecutive elements & check if (sum-a[i]+a[j]) is present in hm.
 public class TripletWithGivenSum {
 
 	// Function to check if triplet exists in array with given sum
@@ -27,6 +29,7 @@ public class TripletWithGivenSum {
 				if (map.containsKey(val)) {
 					// if triplet don't overlap, return true
 					if (map.get(val) != i && map.get(val) != j) {
+//						System.out.println(A[i]+"::"+A[j]+"::"+val);
 						return true;
 					}
 				}

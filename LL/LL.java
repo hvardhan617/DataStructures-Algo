@@ -142,6 +142,7 @@ public class LL {
 		return head;
 	}
 
+	// https://www.geeksforgeeks.org/reverse-a-linked-list/
 	Node reverse(Node head) {
 		Node prev = null;
 		Node current = head;
@@ -239,23 +240,19 @@ public class LL {
 
 		Node slow = node, fast = node;
 
-		// Move slow and fast 1 and 2 steps
-		// ahead respectively.
-		slow = slow.next;
-		fast = fast.next.next;
-
 		// Search for loop using slow and fast pointers
-		while (fast != null && fast.next != null) {
-			if (slow == fast)
-				break;
+		while (slow != null && fast != null && fast.next != null) {
 
 			slow = slow.next;
 			fast = fast.next.next;
+
+			if (slow == fast)
+				break;
 		}
 
 		/*
-		 * If loop exists slow points to head and fast from the place they met, we need
-		 * to reach tail node in loop n make it point to null
+		 * If loop exists we make slow point to head and fast from the place they met,
+		 * we need to reach tail node in loop n make it point to null
 		 */
 		if (slow == fast) {
 			slow = node;
@@ -342,7 +339,7 @@ public class LL {
 		// for maintaining heads of seperate nodes
 		Node dummy_0 = new Node(), dummy_1 = new Node(), dummy_2 = new Node();
 
-		// 2 references
+		// references for their heads
 		Node zero = dummy_0, one = dummy_1, two = dummy_2;
 		Node curr = head;
 
@@ -540,13 +537,15 @@ public class LL {
 	}
 
 	// https://www.techiedelight.com/reverse-every-k-nodes-of-a-linked-list/?source=post_page---------------------------
+	// https://www.geeksforgeeks.org/reverse-linked-list-groups-given-size-set-2/
+	// includes reversing a LL
 	public static Node groupwiseSwap(Node head, int k) {
 		if (head == null) {
 			return null;
 		}
 		int count = 0;
 		Node curr = head, prev = null;
-		// reverse the LL untill count<k if count=0 or count<=k if count=1
+		// reverse the LL until count<k if count=0 or count<=k if count=1
 		while (curr != null && count++ < k) {
 			Node next = curr.next;
 			curr.next = prev;
@@ -555,7 +554,7 @@ public class LL {
 
 		}
 
-		head.next = groupwiseSwap(curr, k);
+		head.next = groupwiseSwap(curr, k);// only diff from reverse
 		return prev;
 
 	}
@@ -569,6 +568,7 @@ public class LL {
 		Node temp2 = head;
 		int count = 1;
 
+		// travel k nodes (temp reached kth node from beginning)
 		while (temp != null) {
 			if (count < k) {
 				temp = temp.next;
@@ -578,6 +578,7 @@ public class LL {
 			}
 		}
 
+		// start temp2 from head & temp from kth node
 		while (temp.next != null) {
 			temp = temp.next;
 			temp2 = temp2.next;
@@ -653,12 +654,12 @@ public class LL {
 
 		return head;
 	}
-	
-	//https://www.techiedelight.com/rearrange-linked-list-specific-manner-linear-time/
-	rearrangeLL
-	
-	//https://www.techiedelight.com/delete-every-n-nodes-linked-list-skipping-m-nodes/
-	deleteNnodesSkippingMnodes
+
+	// https://www.techiedelight.com/rearrange-linked-list-specific-manner-linear-time/
+//	rearrangeLL
+//	
+//	//https://www.techiedelight.com/delete-every-n-nodes-linked-list-skipping-m-nodes/
+//	deleteNnodesSkippingMnodes
 
 	public static void main(String args[]) {
 		Node head = new Node(10);

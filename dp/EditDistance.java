@@ -21,6 +21,7 @@ public class EditDistance {
 
 		for (int i = 1; i <= str1.length; i++) {
 			for (int j = 1; j <= str2.length; j++) {
+				// if match
 				if (str1[i - 1] == str2[j - 1]) {
 					// copy diagonal element if its a match,coz we wudnt need that as part of edit
 					// distance,we cant add 1

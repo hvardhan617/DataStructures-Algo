@@ -108,6 +108,9 @@ public class BinarySearch {
 
 	// https://www.techiedelight.com/find-smallest-missing-element-sorted-array/
 	// distinct array of non negative integers only
+	// O(log(n))
+	// if every number is present at its index,then it is at the right position.If
+	// we encounter a[mid]!=mid,then go to left,if equal then go to right
 	public int smallestMissing(int a[], int low, int high) {
 		if (low > high) {
 			return low;
@@ -141,18 +144,19 @@ public class BinarySearch {
 		return count(A, left, mid) + count(A, mid + 1, right);
 	}
 
-	public int firstBadVersion(int n) {
+	// https://leetcode.com/articles/first-bad-version/
+	public int firstBadVersion(int n, char[] a) {
 		int left = 0;
 		int right = n - 1;
 
 		while (left <= right) {
 			int mid = left + (right - left) / 2;
 
-//			if (!isBadVersion(mid)) {
-//				left = mid + 1;
-//			} else {
-//				right = mid - 1;
-//			}
+			if ((a[mid] == 'G')) {
+				left = mid + 1;
+			} else {
+				right = mid;
+			}
 		}
 
 		return left;
@@ -161,6 +165,7 @@ public class BinarySearch {
 	// https://www.techiedelight.com/find-square-root-using-binary-search-algorithm/
 	// Function to find square root of x using binary search algorithm
 	// If x is not a perfect square, return floor of the square root
+	// the ans must reside within given number & givenNumber/2
 	public static int sqrt(int x) {
 		// base case
 		if (x < 2) {
@@ -371,15 +376,104 @@ public class BinarySearch {
 			return getFloor(A, left, mid - 1, x);
 		}
 	}
-	
-	//https://www.techiedelight.com/search-element-circular-sorted-array/
-	searchInCircularSortedArray(){
-		
+
+	// https://www.techiedelight.com/search-element-circular-sorted-array/
+	// Function to find an element in a circularly sorted array
+	public static int circularArraySearch(int[] A, int x) {
+		// search space is A[left..right]
+		int left = 0;
+		int right = A.length - 1;
+
+		// iterate till search space contains at-least one element
+		while (left <= right) {
+			// find the mid value in the search space and
+			// compares it with key value
+			int mid = (left + right) / 2;
+
+			// if key is found, return its index
+			if (x == A[mid]) {
+				return mid;
+			}
+
+			// if right half (A[mid..right]) is sorted and mid is not
+			// the key element
+			if (A[mid] <= A[right]) {
+				// compare key with A[mid] and A[right] to know
+				// if it lies in A[mid..right] or not
+				if (x > A[mid] && x <= A[right]) {
+					// go searching in right sorted half
+					left = mid + 1;
+				} else {
+					right = mid - 1; // go searching left
+				}
+			}
+
+			// if left half (A[left..mid]) is sorted and mid is not
+			// the key element
+			else {
+				// compare key with A[left] and A[mid] to know
+				// if it lies in A[left..mid] or not
+				if (x >= A[left] && x < A[mid]) {
+					// go searching in left sorted half
+					right = mid - 1;
+				} else {
+					left = mid + 1; // go searching right
+				}
+			}
+		}
+
+		// key not found or invalid input
+		return -1;
 	}
-	
-	//https://www.techiedelight.com/find-number-rotations-circularly-sorted-array/
-	noOfTimesSortedArrayIsRotated(){
-		
+
+	// https://www.techiedelight.com/find-number-rotations-circularly-sorted-array/
+	// Function to find the number of times the array is rotated
+	public static int findRotationCount(int[] A) {
+		// search space is A[left..right]
+		int left = 0;
+		int right = A.length - 1;
+
+		// iterate till search space contains at-least one element
+		while (left <= right) {
+			// if the search space is already sorted, we have
+			// found the minimum element (at index left)
+			if (A[left] <= A[right]) {
+				return left;
+			}
+
+			int mid = (left + right) / 2;
+
+			// find next and previous element of the mid element
+			// (in circular manner)
+			int next = (mid + 1) % A.length;
+			int prev = (mid - 1 + A.length) % A.length;
+
+			// if mid element is less than both its next and previous
+			// neighbor, then it is the minimum element of the array
+
+			if (A[mid] <= A[next] && A[mid] <= A[prev]) {
+				return mid;
+			}
+
+			// if A[mid..right] is sorted and mid is not the min element,
+			// then pivot element cannot be present in A[mid..right] and
+			// we can discard A[mid..right] and search in the left half
+
+			else if (A[mid] <= A[right]) {
+				right = mid - 1;
+			}
+
+			// if A[left..mid] is sorted then pivot element cannot be
+			// present in it and we can discard A[left..mid] and search
+			// in the right half
+
+			else if (A[mid] >= A[left]) {
+				left = mid + 1;
+			}
+		}
+
+		// invalid input
+		return -1;
 	}
 
 	public static void main(String args[]) {

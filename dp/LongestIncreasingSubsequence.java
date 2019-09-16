@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 //https://www.youtube.com/watch?v=CE2b_-XfVDk&list=PLrmLmBdmIlpsHaNTPP_jHHDx_os9ItYXr&index=7
 //https://www.youtube.com/watch?v=S9oUiVYEq7E
+//takes O(n2) using DP but can be solved in nlogn using Binary search
 public class LongestIncreasingSubsequence {
 
 	/**
@@ -20,11 +21,9 @@ public class LongestIncreasingSubsequence {
 		for (int i = 1; i < arr.length; i++) {
 			for (int j = 0; j < i; j++) {
 				if (arr[i] > arr[j]) {
-					if (T[j] + 1 > T[i]) {
-						T[i] = T[j] + 1;
-						// set the actualSolution to point to guy before me
-						actualSolution[i] = j;
-					}
+					T[i] = Integer.max(T[i], T[j] + 1);
+					// set the actualSolution to point to guy before me
+					actualSolution[i] = j;
 				}
 			}
 		}
@@ -81,8 +80,8 @@ public class LongestIncreasingSubsequence {
 		LongestIncreasingSubsequence lis = new LongestIncreasingSubsequence();
 		int arr[] = { 23, 10, 22, 5, 33, 8, 9, 21, 50, 41, 60, 80, 99, 22, 23, 24, 25, 26, 27 };
 		int result = lis.longestSubsequenceWithActualSolution(arr);
-		int result1 = lis.longestSubsequenceRecursive(arr);
-		System.out.println(result);
-		System.out.println(result1);
+//		int result1 = lis.longestSubsequenceRecursive(arr);
+//		System.out.println(result);
+//		System.out.println(result1);
 	}
 }

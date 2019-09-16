@@ -17,7 +17,7 @@ public class LRUCache {
 
 	HashMap<Integer, Entry> hashmap;
 	// dummy nodes for marking start and end of LL
-	Entry start, end;
+	Entry start, end; // to track head & tail of LL
 	int LRU_SIZE = 4; // Here i am setting 4 to test the LRU cache
 						// implementation, it can make be dynamic
 
@@ -38,8 +38,8 @@ public class LRUCache {
 	}
 
 	public void putEntry(int key, int value) {
-		if (hashmap.containsKey(key)) // Key Already Exist, just update the value and remove & move it to top
-		{
+		// Key Already Exist, just update the value and remove & move it to top
+		if (hashmap.containsKey(key)) {
 			Entry entry = hashmap.get(key);
 			entry.value = value;
 			removeNode(entry);
