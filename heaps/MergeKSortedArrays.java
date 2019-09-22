@@ -36,6 +36,8 @@ public class MergeKSortedArrays {
 		int size = 0;
 		// arrays[i].length gives column length which is number of elements in each
 		// array
+		// COUNT NUMBER OF ELEMENTS in all the lists to store the final output in a new
+		// array
 		for (int i = 0; i < arrays.length; i++) {
 			size += arrays[i].length;
 		}

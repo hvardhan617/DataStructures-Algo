@@ -29,9 +29,13 @@ class Graph {
 			adjList.add(i, new ArrayList<>());
 		}
 
-		// add edges to the undirected graph
+		// add edges to the directed graph
 		for (Edge edge : edges) {
-			adjList.get(edge.source).add(edge.dest);
+			int src = edge.source;
+			int dest = edge.dest;
+
+			adjList.get(src).add(dest);
+			adjList.get(dest).add(src);
 		}
 	}
 }

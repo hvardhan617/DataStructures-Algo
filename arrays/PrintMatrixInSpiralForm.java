@@ -31,28 +31,28 @@ public class PrintMatrixInSpiralForm {
 					System.out.println(matrix[top][i]);
 				}
 				top = top + 1;
-//				dir = 1;
+				dir = 1;
 			} else if (dir == 1) {
 				for (int i = top; i <= bottom; i++) {
 					System.out.println(matrix[i][right]);
 				}
 				right = right - 1;
-//				dir = 2;
+				dir = 2;
 			} else if (dir == 2) {
 				for (int i = right; i >= left; i--) {
 					System.out.println(matrix[bottom][i]);
 				}
 				bottom = bottom - 1;
-//				dir = 3;
+				dir = 3;
 			} else if (dir == 3) {
 				for (int i = bottom; i >= top; i--) {
 					System.out.println(matrix[i][left]);
 				}
 				left = left + 1;
-//				dir = 0;
+				dir = 0;
 			}
 
-			dir = (dir + 1) % 4;
+//			dir = (dir + 1) % 4;
 		}
 	}
 }

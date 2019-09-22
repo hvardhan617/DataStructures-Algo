@@ -82,8 +82,9 @@ public class SubArraysWithZeroSum {
 
 			// insert (sum so far, current index) pair into the Multi-map
 			insert(hashMap, sum, i);
-			hashMap.forEach((k, v) -> System.out.println("key:::" + k + ":" + v));
+
 		}
+		hashMap.forEach((k, v) -> System.out.println("key:::" + k + ":" + v));
 	}
 
 	private static Boolean checkForZeroSumSubarray(int a[]) {

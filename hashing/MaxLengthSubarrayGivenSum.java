@@ -5,6 +5,9 @@ import java.util.Map;
 
 //https://www.techiedelight.com/find-maximum-length-sub-array-having-given-sum/
 //https://www.youtube.com/watch?v=xa_60srQAKo
+//handles negative numbers also unlike sliding window
+//insert into map sum:index for every sum encountered for the first time & 
+//check if sum-givenSum exists in the hashmap
 public class MaxLengthSubarrayGivenSum {
 	// Find maximum length sub-array with sum S present in the given array
 	public static void maxLengthSubArray(int[] A, int S) {
@@ -41,6 +44,7 @@ public class MaxLengthSubarrayGivenSum {
 				ending_index = i;
 			}
 		}
+		map.forEach((k, v) -> System.out.println(k + ":" + v));
 
 		// print the sub-array
 		System.out.println("[" + (ending_index - len + 1) + ", " + ending_index + "]");

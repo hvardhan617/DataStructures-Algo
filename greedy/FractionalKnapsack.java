@@ -1,7 +1,8 @@
-package dp;
+package greedy;
 
 import java.util.Scanner;
 
+//https://www.youtube.com/watch?v=oTTzNMHM05I
 public class FractionalKnapsack {
 
 	double weight[];
@@ -53,6 +54,8 @@ public class FractionalKnapsack {
 			}
 
 			System.out.print((item + 1) + " ");
+			// if adding the total weight of the item is exceeding the capacity, we multiply
+			// out its ratio
 			if (currentWeight + weight[item] <= capacity) {
 				currentWeight = currentWeight + weight[item];
 				currentProfit = currentProfit + profit[item];

@@ -35,7 +35,7 @@ public class SourcetoDestinationWithConstraints {
 	private static int[] row = { -1, 0, 0, 1 };
 	private static int[] col = { 0, -1, 1, 0 };
 
-	// The function returns false if pt is not a valid position
+	// The function returns false if it is not a valid position
 	private static boolean isValid(int x, int y) {
 		return (x >= 0 && x < N) && (y >= 0 && y < N);
 	}

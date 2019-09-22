@@ -145,6 +145,7 @@ public class BinarySearch {
 	}
 
 	// https://leetcode.com/articles/first-bad-version/
+	// first occurance
 	public int firstBadVersion(int n, char[] a) {
 		int left = 0;
 		int right = n - 1;
@@ -379,6 +380,7 @@ public class BinarySearch {
 
 	// https://www.techiedelight.com/search-element-circular-sorted-array/
 	// Function to find an element in a circularly sorted array
+	// https://www.youtube.com/watch?v=uufaK2uLnSI
 	public static int circularArraySearch(int[] A, int x) {
 		// search space is A[left..right]
 		int left = 0;
@@ -428,6 +430,8 @@ public class BinarySearch {
 
 	// https://www.techiedelight.com/find-number-rotations-circularly-sorted-array/
 	// Function to find the number of times the array is rotated
+	// https://www.youtube.com/watch?v=4qjprDkJrjY
+	// noOfRotations = index of min element
 	public static int findRotationCount(int[] A) {
 		// search space is A[left..right]
 		int left = 0;

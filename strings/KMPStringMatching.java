@@ -52,6 +52,7 @@ public class KMPStringMatching {
 			if (pat.charAt(j) == pat.charAt(i)) {
 				i = i + 1;
 				lps[j] = i;
+				// put index of i at lps[j]
 				j = j + 1;
 			} else // (pat[i] != pat[j])
 			{
@@ -65,7 +66,7 @@ public class KMPStringMatching {
 					// i here
 				} else // if (len == 0) for starting characters until a match is encountered
 				{
-					lps[j] = i;
+					lps[j] = i;// i=0;
 					j = j + 1;
 				}
 			}

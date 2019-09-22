@@ -8,7 +8,7 @@ import java.util.Queue;
 //https://www.techiedelight.com/bipartite-graph/
 //A bipartite graph is one where vertices can be grouped as disjoint sets U & V
 //and every edge exists from one vertex to another among the disjoint sets
-
+//If there contains an edge with both of its ends at same level, there is an odd cycle
 //https://www.youtube.com/watch?v=za_BGCGJzSs
 public class CheckIfBipartiteGraph {
 	// Perform BFS on graph starting from vertex v

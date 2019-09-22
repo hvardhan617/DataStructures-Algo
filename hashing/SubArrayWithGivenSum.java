@@ -33,8 +33,9 @@ public class SubArrayWithGivenSum {
 			}
 			// if value is not present then add to hashmap
 			hashMap.put(cur_sum, i);
-			hashMap.forEach((k, v) -> System.out.println(k + ":" + v));
+
 		}
+		hashMap.forEach((k, v) -> System.out.println(k + ":" + v));
 		// if end is -1 : means we have reached end without the sum
 		if (end == -1) {
 			System.out.println("No subarray with given sum exists");

@@ -1,7 +1,5 @@
 package arrays;
 
-import java.util.ArrayList;
-
 //https://www.geeksforgeeks.org/stock-buy-sell/
 //https://www.geeksforgeeks.org/maximum-difference-between-two-elements/
 
@@ -65,6 +63,7 @@ public class BuySellStockForMaxProfit {
 	// Function to find maximum profit that can be earned by buying and
 	// selling shares any number of times
 	// https://www.techiedelight.com/maximum-profit-earned-buying-and-selling-shares/
+	// First find lowest price and then look for peak elements
 	public static int maxProfit(int[] price) {
 		// store maximum profit gained
 		int profit = 0;

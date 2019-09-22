@@ -9,6 +9,8 @@ import java.util.Queue;
 //https://www.youtube.com/watch?v=6ZRhq2oFCuo
 //https://www.youtube.com/watch?v=joqmqvHC_Bo
 //https://www.youtube.com/watch?v=AK7BuT5MgU0
+//https://www.youtube.com/watch?v=n_t0a_8H8VY
+//https://github.com/mission-peace/interview/blob/master/src/com/interview/graph/CycleUndirectedGraph.java
 // Consider using stack and checking
 class Edge_e {
 	int source, dest;

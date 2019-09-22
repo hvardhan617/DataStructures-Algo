@@ -18,20 +18,34 @@ public class SubArrayWithGivenSUm {
 	private static void findSubarray(int[] a, int sum) {
 		int windowSum = 0, left = 0, right = 0;
 
-		while (left < a.length) {
+//		while (left < a.length) {
+//			while (right < a.length && windowSum < sum) {
+//				windowSum = windowSum + a[right];
+//				right = right + 1;
+//			}
+//
+//			if (windowSum == sum) {
+//				System.out.println("Found subarray at " + a[left] + "to" + a[right-1]);
+//				break;
+//			}
+//
+//			windowSum = windowSum - a[left];
+//			left = left + 1;
+//
+//		}
+
+		for (int i = left; i < a.length; i++) {
 			while (right < a.length && windowSum < sum) {
 				windowSum = windowSum + a[right];
 				right = right + 1;
 			}
 
 			if (windowSum == sum) {
-				System.out.println("Found subarray at " + a[left] + "to" + a[right-1]);
+				System.out.println("Found subarray at " + a[left] + "to" + a[right - 1]);
 				break;
 			}
-
 			windowSum = windowSum - a[left];
 			left = left + 1;
-
 		}
 	}
 }

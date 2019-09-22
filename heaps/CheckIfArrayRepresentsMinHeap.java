@@ -1,6 +1,9 @@
 package heaps;
 
 //https://www.techiedelight.com/check-given-array-represents-min-heap-not/
+//how to find out if an element in an array is an internal node or leaf node by index value.
+// internal node if(2*i +2 <= n)
+//leaf node if(2*i +2)>n
 public class CheckIfArrayRepresentsMinHeap {
 
 	// Iterative function to check if given array represents

@@ -57,6 +57,9 @@ public class QuadrupletsWithGivenSum {
 				map.putIfAbsent(A[i] + A[j], new ArrayList<>());
 				map.get(A[i] + A[j]).add(new Pair(i, j));
 			}
+//			map.forEach((k, v) -> {
+//				System.out.println(k + "::::" + v.x + "::" + v.y);
+//			});
 		}
 
 		// return false if Quadruplet don't exist

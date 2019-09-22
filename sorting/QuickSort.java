@@ -84,6 +84,7 @@ public class QuickSort {
 		return 1;
 	}
 
+	//sort positives n negatives in O(N)
 	void partition2(int a[], int start, int end) {
 		int pIndex = start;
 

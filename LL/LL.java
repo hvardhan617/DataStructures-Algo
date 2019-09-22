@@ -111,7 +111,7 @@ public class LL {
 		}
 		Node prev = head;
 		Node temp = head.next;
-		// loop untill last node
+		// loop until last node
 		while (temp.next != null) {
 			prev = prev.next;
 			temp = temp.next;
@@ -546,11 +546,13 @@ public class LL {
 		int count = 0;
 		Node curr = head, prev = null;
 		// reverse the LL until count<k if count=0 or count<=k if count=1
-		while (curr != null && count++ < k) {
+		while (curr != null && count < k) {
 			Node next = curr.next;
 			curr.next = prev;
 			prev = curr;
 			curr = next;
+
+			count = count + 1;
 
 		}
 
