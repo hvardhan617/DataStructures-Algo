@@ -12,6 +12,8 @@ public class MaxProductSubarray {
 		maxProduct(A);
 	}
 
+	// consider 3 possibilities
+	// if currElement is positive/negative/starting point
 	private static void maxProduct(int[] a) {
 
 		int ans = a[0];
@@ -19,7 +21,7 @@ public class MaxProductSubarray {
 
 		for (int i = 1; i < a.length; i++) {
 			currMax = Integer.max(Integer.max(prevMax * a[i], prevMin * a[i]), a[i]);
-			currMin = Integer.min(Integer.max(prevMax * a[i], prevMin * a[i]), a[i]);
+			currMin = Integer.min(Integer.min(prevMax * a[i], prevMin * a[i]), a[i]);
 
 			ans = Integer.max(ans, currMax);
 			prevMax = currMax;

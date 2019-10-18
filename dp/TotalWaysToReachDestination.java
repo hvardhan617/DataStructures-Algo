@@ -1,5 +1,8 @@
 package dp;
 
+//end goal is to return the total number of ways we could reach the destination cell.
+//every cell in tabulation matrix denotes the max number of ways possible to reach the current cell
+//(up + bottom) = current cell value
 public class TotalWaysToReachDestination {
 
 	// without obstacle & direction allowed in right & bottom only
@@ -47,9 +50,12 @@ public class TotalWaysToReachDestination {
 
 		// first column
 		for (int i = 0; i < height; i++) {
+			// if not obstacle
 			if (obstacleGrid[i][0] != 1) {
 				paths[i][0] = 1;
 			} else {
+				// remaining can be ignored once we encounter an obstacle as they are
+				// unreachable
 				break;
 			}
 		}

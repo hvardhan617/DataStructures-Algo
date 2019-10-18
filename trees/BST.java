@@ -1,8 +1,6 @@
 package trees;
 
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,8 +17,9 @@ public class BST {
 	private static Map<Integer, Integer> bottomViewMap = new TreeMap<Integer, Integer>(); // maintains keys in sorted
 																							// order
 	private static Map<Integer, Integer> topViewMap = new TreeMap<Integer, Integer>();// maintains keys in sorted order
+	int maxDiameterTillNow = Integer.MIN_VALUE;
 
-	private static class Node {
+	public static class Node {
 		int data;
 		Node left;
 		Node right;
@@ -88,129 +87,6 @@ public class BST {
 			}
 		}
 
-	}
-
-	// https://www.techiedelight.com/preorder-tree-traversal-iterative-recursive/
-	public void preOrderRecursive(Node root) {
-		if (root != null) {
-			System.out.println(root.data);
-			preOrderRecursive(root.left);
-			preOrderRecursive(root.right);
-		}
-	}
-
-	// DFS-stack (push root , right, left)
-	public void preOrderIterative(Node root) {
-		Stack<Node> stack = new Stack<>();
-		stack.push(root);
-
-		// push root & process both childs of the node completely at each iteration
-		while (!stack.empty()) {
-			Node current = stack.pop();
-			System.out.println("::::::" + current.data);
-			if (current.right != null) {
-				stack.push(current.right);
-			}
-			if (current.left != null) {
-				stack.push(current.left);
-			}
-		}
-	}
-
-	// https://www.techiedelight.com/postorder-tree-traversal-iterative-recursive/
-
-	public void postOrderRecursive(Node root) {
-		if (root != null) {
-			postOrderRecursive(root.left);
-			postOrderRecursive(root.right);
-			System.out.println(root.data);
-		}
-	}
-
-	// Iterative function to perform post-order traversal of the tree
-	// need 2 stacks (push root, left, right)
-	public static void postorderIterative(Node root) {
-		// create an empty stack and push root node
-		Stack<Node> stack = new Stack<Node>();
-		stack.push(root);
-
-		// create another stack to store post-order traversal
-		Stack<Integer> out = new Stack<>();
-
-		// push root & process both childs of the node completely at each iteration but
-		// with another stack
-		// run till stack is not empty
-		while (!stack.empty()) {
-			// we pop a node from the stack and push the data to output stack
-			Node curr = stack.pop();
-			out.push(curr.data);
-
-			// push left and right child of popped node to the stack
-			if (curr.left != null) {
-				stack.push(curr.left);
-			}
-
-			if (curr.right != null) {
-				stack.push(curr.right);
-			}
-		}
-
-		// print post-order traversal
-		while (!out.empty()) {
-			System.out.print(out.pop() + " ");
-		}
-	}
-
-	// https://www.techiedelight.com/inorder-tree-traversal-iterative-recursive/
-	public void inOrderRecursive(Node root) {
-		if (root != null) {
-			inOrderRecursive(root.left);
-			System.out.println(root.data);
-			inOrderRecursive(root.right);
-		}
-	}
-
-	// Careful!!!!
-	public void inOrderIterative(Node root) {
-		Stack<Node> stack = new Stack<>();
-		Node curr = root;
-
-		// process root & only one half of the node at each iteration(if-else)
-		while (curr != null && !stack.isEmpty()) {
-			if (curr != null) {
-				stack.push(curr);
-				curr = curr.left;
-			} else {
-				curr = stack.pop();
-				System.out.println("::::" + curr.data);
-				curr = curr.right;
-			}
-		}
-	}
-
-	// BFS- queue
-	public void levelOrderIterative(Node root) {
-		Queue<Node> queue = new LinkedList<Node>();
-		queue.add(root);
-		while (!queue.isEmpty()) {
-
-			/*
-			 * poll() removes the present head. For more information on poll() visit
-			 * http://www.tutorialspoint.com/java/util/linkedlist_poll.htm
-			 */
-			Node tempNode = queue.poll();
-			System.out.print(tempNode.data + " ");
-
-			/* Enqueue left child */
-			if (tempNode.left != null) {
-				queue.add(tempNode.left);
-			}
-
-			/* Enqueue right child */
-			if (tempNode.right != null) {
-				queue.add(tempNode.right);
-			}
-		}
 	}
 
 	// need to use vertical distance - Iterative approach
@@ -437,6 +313,7 @@ public class BST {
 	}
 
 	// https://www.geeksforgeeks.org/diameter-of-a-binary-tree-in-on-a-new-method/
+	// printNodesAtKDistanceFromRoot
 	public static void printNodesAtLevel(Node root, int level) {
 		if (root == null) {
 			return;
@@ -483,6 +360,7 @@ public class BST {
 
 	// recursive
 	// https://javabypatel.blogspot.com/2015/12/diameter-of-binary-tree.html
+	// O(n2)
 	public static int diameter(Node root) {
 		/* base case if tree is empty */
 		if (root == null)
@@ -509,11 +387,31 @@ public class BST {
 		return Math.max(lheight + rheight + 1, Math.max(ldiameter, rdiameter));
 	}
 
+	// O(n)
+	private int getDiameterOfBinaryTreeUsingGlobalVariable(Node startNode) {
+		if (startNode == null)
+			return 0;
+
+		int leftHeight = getDiameterOfBinaryTreeUsingGlobalVariable(startNode.left); // Height of Left Subtree
+		int rightHeight = getDiameterOfBinaryTreeUsingGlobalVariable(startNode.right); // Height of Right Subtree
+
+		if (leftHeight + rightHeight + 1 > maxDiameterTillNow) { // + 1 for node itself
+			maxDiameterTillNow = leftHeight + rightHeight + 1;
+		}
+//		if (leftHeight > rightHeight)
+//			return leftHeight + 1;
+//		else
+//			return rightHeight + 1;
+		return Math.max(leftHeight, rightHeight) + 1;
+	}
+
 	// https://www.geeksforgeeks.org/write-a-c-program-to-find-the-maximum-depth-or-height-of-a-tree/
 	/*
 	 * Compute the "maxDepth" of a tree -- the number of nodes along the longest
 	 * path from the root node down to the farthest leaf node.
 	 */
+	// https://www.youtube.com/watch?v=rrXAISjtbAA
+	// O(n) constant work at every node
 	static int height(Node node) {
 		if (node == null)
 			return 0;
@@ -1061,102 +959,23 @@ public class BST {
 		return left && isBST(root.right, prev);
 	}
 
-	// https://www.techiedelight.com/find-maximum-sum-root-to-leaf-path-binary-tree/
-	// Use post order traversal(since it is a bottom Up traversal) & maintain
-	// maxSumSoFar
-	// Function to print maximum sum root-to-leaf path in a given binary tree
-	public static void findMaxSumPath(Node root) {
-		int sum = rootToLeafSum(root);
-		System.out.println("Maximum sum is " + sum);
-		System.out.println("Maximum sum path is: ");
+	// Function to determine if given Binary Tree is a BST or not
+	void isBST(Node node) {
+		// pointer to store previous processed node in inorder traversal
+		Node prev = new Node(Integer.MIN_VALUE);
 
-		printPath(root, sum);
+		// check if nodes are nodes are processed in sorted order
+		if (isBST(node, prev))
+			System.out.println("This is a BST.");
+		else
+			System.out.println("This is NOT a BST!");
 	}
 
-	// Function to print root-to-leaf path having given sum in a binary tree
-	public static boolean printPath(Node root, int sum) {
-		// base case
-		if (sum == 0) {
-			return true;
-		}
+	
 
-		// base case
-		if (root == null) {
-			return false;
-		}
+	
 
-		// recur for left and right subtree with reduced sum
-		boolean left = printPath(root.left, sum - root.data);
-		boolean right = printPath(root.right, sum - root.data);
-
-		// print current node if it lies on path having given sum
-		if (left || right) {
-			System.out.print(root.data + " ");
-		}
-
-		return left || right;
-	}
-
-	// Function to calculate maximum root-to-leaf sum in a binary tree
-	public static int rootToLeafSum(Node root) {
-		// base case: tree is empty
-		if (root == null) {
-			return 0;
-		}
-
-		// calculate maximum node-to-leaf sum for left child
-		int left = rootToLeafSum(root.left);
-
-		// calculate maximum node-to-leaf sum for right child
-		int right = rootToLeafSum(root.right);
-
-		// consider maximum sum child
-		return (left > right ? left : right) + root.data;
-	}
-
-	// https://www.techiedelight.com/print-corner-nodes-every-level-binary-tree/
-	// mix of leftview and right view
-	public static void printCornerNodes(Node root) {
-		if (root == null) {
-			return;
-		}
-		boolean nullReached = false;
-		int lastBeforeNull;
-		Queue<Node> q = new LinkedList<Node>();
-		q.add(root);
-		q.add(null);
-		nullReached = true;
-		lastBeforeNull = root.data;
-
-		while (!q.isEmpty()) {
-			Node temp = q.poll();
-			if (nullReached) {
-
-				System.out.println("::::" + temp.data + "::::" + lastBeforeNull);
-			}
-			if (temp == null && !q.isEmpty()) {
-
-				q.add(null);
-				nullReached = true;
-
-			} else {
-				if (temp != null) {
-					// else add the children of extracted node.
-					if (temp.left != null) {
-						q.add(temp.left);
-						lastBeforeNull = temp.left.data;
-					}
-					if (temp.right != null) {
-						q.add(temp.right);
-						lastBeforeNull = temp.right.data;
-					}
-					nullReached = false;
-
-				}
-			}
-		}
-		q.clear();
-	}
+	
 
 	// https://www.techiedelight.com/place-convert-given-binary-tree-to-doubly-linked-list/
 	// do an inorder traversal and for every node insert it at front of LL and then
@@ -1168,7 +987,7 @@ public class BST {
 		}
 
 		// recursively convert left subtree first
-		head = convertBT_DLL(root.left, head);
+		convertBT_DLL(root.left, head);
 
 		// store right child
 		Node right = root.right;
@@ -1185,138 +1004,11 @@ public class BST {
 		return convertBT_DLL(right, head);
 	}
 
-	// Iterative function to print the diagonal elements of given binary tree
-	// The idea is to use a queue to store only the left child of current node.
-	// After printing the data of current node make the current node to its right
-	// child, if present.
-	// A delimiter NULL is used to mark the starting of next diagonal.
-	// https://www.geeksforgeeks.org/iterative-diagonal-traversal-binary-tree/
-	public static void diagonalPrint(Node root) {
-		// base case
-		if (root == null)
-			return;
+	
 
-		// inbuilt queue of Treenode
-		Queue<Node> q = new LinkedList<Node>();
+	
 
-		// add root
-		q.add(root);
-
-		// add delimiter
-		q.add(null);
-
-		while (q.size() > 0) {
-			Node temp = q.poll();
-
-			// if current is delimiter then insert another
-			// for next diagonal and cout nextline
-			if (temp == null) {
-
-				// if queue is empty return
-				if (q.size() == 0)
-					return;
-
-				// output nextline
-				System.out.println();
-
-				// add delimiter again
-				q.add(null);
-			} else {
-				while (temp != null) {
-					System.out.print(temp.data + " ");
-
-					// if left child is present
-					// add into queue
-					if (temp.left != null)
-						q.add(temp.left);
-
-					// current equals to right child
-					temp = temp.right;
-				}
-			}
-		}
-	}
-
-	// https://www.techiedelight.com/check-given-binary-tree-sum-tree-not/
-	// use post order traversal(bottom up) and check if subtrees sum is the value of
-	// root
-	// Recursive function to check if given binary tree is a sum tree or not
-
-	// top down traversal wudnt work if we check if value at a node is equal to sum
-	// of its children , in a sum tree node value is sum of left & right subtrees
-	// and not just its children
-	// 1) If the node is a leaf node then sum of subtree rooted with this node is
-	// equal to value of this node.
-	// 2) If the node is not a leaf node then sum of subtree rooted with this node
-	// is twice the value of this node (Assuming that the tree rooted with this node
-	// is SumTree).
-	public static int isSumTree(Node root) {
-		// base case: empty tree
-		if (root == null) {
-			return 0;
-		}
-
-		// special case: leaf node
-		if (root.left == null && root.right == null) {
-			return root.data;
-		}
-
-		// if root's value is equal to sum of all elements present in its
-		// left and right subtree
-		if (root.data == isSumTree(root.left) + isSumTree(root.right)) {
-			return 2 * root.data;
-		}
-
-		return Integer.MIN_VALUE;
-	}
-//
-//	// https://www.techiedelight.com/inplace-convert-a-tree-sum-tree/
-//	convertBT_SumTree(){
-//		
-//	}
-//
-
-	// https://www.techiedelight.com/reverse-level-order-traversal-binary-tree/
-	// use queue & stack
-	// Function to print reverse level order traversal of given binary tree
-	public static void reverseLevelOrderTraversal(Node root) {
-		if (root == null) {
-			return;
-		}
-
-		// create an empty queue and enqueue root node
-		Queue<Node> queue = new ArrayDeque<>();
-		queue.add(root);
-
-		// create an stack to reverse level order nodes
-		Deque<Integer> stack = new ArrayDeque<>();
-
-		// pointer to store current node
-		Node curr;
-
-		// run till queue is not empty
-		while (!queue.isEmpty()) {
-			// process each node in queue and enqueue their children
-			curr = queue.poll();
-
-			// push current node to stack
-			stack.push(curr.data);
-
-			// important - process right node before left node
-			if (curr.right != null) {
-				queue.add(curr.right);
-			}
-
-			if (curr.left != null) {
-				queue.add(curr.left);
-			}
-		}
-
-		// pop all nodes from the stack and print them
-		while (!stack.isEmpty()) {
-			System.out.print(stack.poll() + " ");
-		}
-	}
+	
 
 	// https://www.techiedelight.com/find-triplet-with-given-sum-bst/
 	// traverse BST in inorder which gives all nodes in sorted order,now use hashing
@@ -1325,86 +1017,8 @@ public class BST {
 	// https://www.techiedelight.com/find-pair-with-given-sum-bst/
 	// traverse BSTin inorder and use hashing to find the pair -O(n)
 
-	// https://www.techiedelight.com/find-kth-smallest-largest-element-bst/
-	// while doing an inorder traversal,maintain the count so if count ==k return
-	// that
-	// node
+	
 
-	// https://www.techiedelight.com/print-all-paths-from-root-to-leaf-nodes-binary-tree/
-	// https://www.youtube.com/watch?v=zIkDfgFAg60
-	// inorder + queues
-//	allPathsFromRootToLeaf(){
-//		
-//	}
-
-	// https://www.youtube.com/watch?v=5cPbNCrdotA
-	// we could use inorder traversal but it would be expensive.
-	public static Node getInorderSuccessor(Node root, int data) {
-		if (root == null) {
-			return null;
-		}
-		Node curr = searchNode(root, data);
-		// CASE 1: if the node has a right subtree,inorder successor would be the left
-		// most node
-		// in the right subtree
-		if (curr.right != null) {
-			Node temp = curr.right;
-			while (temp.left != null) {
-				temp = temp.left;
-			}
-			return temp;
-		}
-		// CASE 2: if the node doesnt have a right subtree
-		else {
-			Node ancestor = root;
-			Node successor = null;
-
-			while (ancestor != curr) {
-				// if node falls in left subtree
-				if (curr.data <= ancestor.data) {
-					successor = ancestor;
-					ancestor = ancestor.left;
-				} else {
-					ancestor = ancestor.right;
-				}
-			}
-
-			return successor;
-		}
-
-	}
-
-	// https://www.techiedelight.com/find-inorder-predecessor-given-key-bst/
-	public static Node inOrderPredecessor(Node root, int data) {
-		if (root == null)
-			return null;
-		Node curr = searchNode(root, data);
-		// if node has left subtree,its predecessor would be highest node in left
-		// subtree
-		if (curr.left != null) {
-			Node temp = curr.left;
-			while (temp.right != null) {
-				temp = temp.right;
-			}
-			return temp;
-		}
-		// if it has right subtree
-		else {
-			Node ancestor = root;
-			Node predecessor = null;
-
-			while (ancestor != curr) {
-				// if it becomes part of right subtree
-				if (curr.data <= ancestor.data) {
-					ancestor = ancestor.left;
-				} else {
-					predecessor = ancestor;
-					ancestor = ancestor.right;
-				}
-			}
-			return predecessor;
-		}
-	}
 //
 //	public static void main(String args[]) {
 //
@@ -1430,12 +1044,7 @@ public class BST {
 ////		LCA(root, root.right.right.right, root.right);
 //	}
 
-	private static Node searchNode(Node root, int data) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	// main function
+//	// main function
 	public static void main(String[] args) {
 		/*
 		 * Construct below tree 1 / \ / \ 2 3 / / \ / / \ 4 5 6 / / \ \ / / \ \ 7 8 9 10
@@ -1452,6 +1061,7 @@ public class BST {
 		root.right.left.right = new Node(9);
 		root.right.right.right = new Node(10);
 
-		printCornerNodes(root);
+		//printCornerNodes(root);
 	}
+
 }

@@ -11,6 +11,7 @@ import java.util.Map;
 //https://www.youtube.com/watch?v=aQdZ6hK5Ius
 //https://www.geeksforgeeks.org/print-all-subarrays-with-0-sum/
 //insert sum as key n index as value,whenever 0 sum is encountered,print the subarray range
+//O(n)
 public class SubArraysWithZeroSum {
 
 	// main function

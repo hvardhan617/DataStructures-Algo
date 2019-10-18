@@ -7,6 +7,7 @@ import java.util.Stack;
 //https://www.techiedelight.com/merging-overlapping-intervals/
 //https://www.geeksforgeeks.org/merging-intervals/
 
+//O(nlogn) and space O(n) for stack
 public class MergingOverlappingIntervals {
 
 	static class Interval {

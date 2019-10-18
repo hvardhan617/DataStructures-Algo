@@ -2,6 +2,7 @@ package hashing;
 
 import java.util.HashMap;
 
+//O(n)
 public class PairwithGivenSum {
 
 	public static void main(String args[]) {

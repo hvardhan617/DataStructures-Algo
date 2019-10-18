@@ -4,7 +4,9 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 //https://www.youtube.com/watch?v=cr6Ip0J9izc
-//variation of LIS
+//end goal is to select jobs that maximize the profit & return profit( keeping track of max profit)
+//variation of LIS - single array(no 2d matrix in tabulation & i starts from index 1 and compare j from index 0 to i
+//every cell in array tells us the max profit that can be made until that point
 class Job {
 	int start;
 	int end;

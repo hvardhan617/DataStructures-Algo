@@ -4,6 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 //https://www.youtube.com/watch?v=AXjmTQ8LEoI
+//https://www.geeksforgeeks.org/trie-insert-and-search/
+//Insert and search costs O(key_length) for single key
+//Insert and search costs O(key_length * number of keys), 
+//however the memory requirements of Trie is O(ALPHABET_SIZE * key_length * N)
+//where N is number of keys in Trie. 
+//There are efficient representation of trie nodes (e.g. compressed trie, ternary search tree, etc.) to minimize memory requirements of trie.
 public class TrieImpl {
 
 	private class TrieNode {

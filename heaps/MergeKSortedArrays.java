@@ -5,7 +5,7 @@ import java.util.PriorityQueue;
 
 //Props of a Priority Q (https://www.geeksforgeeks.org/priority-queue-class-in-java-2/)
 //https://algorithmsandme.com/merge-k-sorted-arrays/
-
+//The complexity of the code to merge k sorted arrays is O(n * k * log k) along with space complexity of O(k)
 //https://www.youtube.com/watch?v=ptYUCjfNhJY&list=PLiQ766zSC5jN42O1DBalnkom5y2LXtnnK&index=12&t=0s
 public class MergeKSortedArrays {
 

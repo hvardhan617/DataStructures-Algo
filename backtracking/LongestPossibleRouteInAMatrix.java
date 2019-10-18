@@ -1,6 +1,7 @@
 package backtracking;
 
 //https://www.techiedelight.com/find-longest-possible-route-matrix/
+//explore all possible paths and return max dist by comparing max_dsit with current_dist in recursive function
 public class LongestPossibleRouteInAMatrix {
 
 	// M x N matrix
@@ -32,6 +33,7 @@ public class LongestPossibleRouteInAMatrix {
 	// source cell to the current cell (i, j)
 	public static int findLongestPath(int mat[][], int visited[][], int i, int j, int x, int y, int max_dist,
 			int dist) {
+
 		// if destination is found, update max_dist
 		if (i == x && j == y) {
 			return Integer.max(dist, max_dist);

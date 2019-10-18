@@ -1,7 +1,13 @@
 package strings;
 
+import java.util.Arrays;
+
 //Pattern matching substring search
+//how less back can i go and start comparing my string with pattern again in case of a mismatch
 //https://www.youtube.com/watch?v=BXCEFAzhxGY&list=PLiQ766zSC5jN42O1DBalnkom5y2LXtnnK&index=14&t=0s
+//for precomputing the prefix suffix table by traversing the pattern - O(m) & space - O(m)
+//for matching with string - O(n) & O(1)
+//total O(m+n) & O(m)
 public class KMPStringMatching {
 
 	void KMPSearch(String pat, String txt) {
@@ -48,17 +54,20 @@ public class KMPStringMatching {
 
 		// the loop calculates lps[i] for i = 1 to M-1
 		while (j < M) {
-			// if character matches,increment i and update lps[j] , then increment j
+			// if character matches,increment i and update lps[j] as i (index) , then
+			// increment j
 			if (pat.charAt(j) == pat.charAt(i)) {
 				i = i + 1;
-				lps[j] = i;
 				// put index of i at lps[j]
+				lps[j] = i;
+
 				j = j + 1;
 			} else // (pat[i] != pat[j])
 			{
 				// This is tricky. Consider the example.
 				// AAACAAAA and i = 7. The idea is similar
 				// to search step.
+				// i becomes value at lps[i-1]
 				if (i != 0) {
 					i = lps[i - 1];
 
@@ -71,13 +80,14 @@ public class KMPStringMatching {
 				}
 			}
 		}
+		System.out.println(Arrays.toString(lps));
 	}
 
 	// Driver program to test above function
 	public static void main(String args[]) {
 		String txt = "ABABDABACDABABCABAB";
 		String pat = "ABABCABAB";
-		new KMPStringMatching().KMPSearch(pat, txt);
+		new KMPStringMatching().KMPSearch("AAACAAAA", txt);
 	}
 
 }

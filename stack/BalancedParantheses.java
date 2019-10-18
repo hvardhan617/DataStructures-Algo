@@ -3,6 +3,7 @@ package stack;
 import java.util.Stack;
 
 //https://www.techiedelight.com/check-given-expression-balanced-expression-not/
+//O(n) & O(n)
 public class BalancedParantheses {
 	// Function to check if given expression is balanced or not
 	public static boolean balParenthesis(String exp) {

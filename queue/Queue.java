@@ -2,6 +2,7 @@ package queue;
 
 import java.util.NoSuchElementException;
 
+//https://www.youtube.com/watch?v=okr-XE8yTO8
 public class Queue {
 
 	private static int rear = -1, front = -1;
@@ -25,18 +26,17 @@ public class Queue {
 	}
 
 	public int dequeue() {
-		
-		int poppedElement=-1;
+
+		int poppedElement = -1;
 		if (isEmpty()) {
 			System.out.println("Queue is Empty...Dequeue not possible");
-			
-			} else if(front==rear){
-				poppedElement=a[front];
-				front=rear=-1;
-			}
-		 else {
-			 poppedElement=a[front];
-			front=front+1;
+
+		} else if (front == rear) {
+			poppedElement = a[front];
+			front = rear = -1;
+		} else {
+			poppedElement = a[front];
+			front = front + 1;
 		}
 		return poppedElement;
 	}
@@ -78,4 +78,3 @@ public class Queue {
 	}
 
 }
-

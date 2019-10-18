@@ -75,7 +75,7 @@ public class BuySellStockForMaxProfit {
 		for (int i = 1; i < price.length; i++) {
 			// update local minimum if decreasing sequence is found
 			if (price[i - 1] > price[i]) {
-				j = i;
+				j = i; // copy index i to j
 			}
 
 			// sell shares if current element is peak

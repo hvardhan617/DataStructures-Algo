@@ -4,8 +4,10 @@ import java.util.Arrays;
 import java.util.List;
 
 //https://www.techiedelight.com/find-longest-common-prefix-lcp-strings/
+//using D & C , time complexity would be O(N*M) - number of words * max word length
 public class LCPFromSetOfStrings {
 
+	// if this alone is done time complexity will be O(n^2)
 	// Function to find the longest common prefix between two Strings
 	public static String LCP(String X, String Y) {
 		int i = 0, j = 0;
@@ -43,20 +45,6 @@ public class LCPFromSetOfStrings {
 
 		// return the longest common prefix of Strings X and Y
 		return LCP(X, Y);
-	}
-
-	// Function to find the longest common prefix between two Strings
-	public static String LCP2(String X, String Y) {
-		int i = 0, j = 0;
-		while (i < X.length() && j < Y.length()) {
-			if (X.charAt(i) != Y.charAt(j)) {
-				break;
-			}
-			i++;
-			j++;
-		}
-
-		return X.substring(0, i);
 	}
 
 	// Function to find the longest common prefix (LCP) between given set of Strings

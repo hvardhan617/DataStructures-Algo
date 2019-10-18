@@ -2,6 +2,7 @@ package arrays;
 
 //https://www.youtube.com/watch?v=NheWPxGpoxQ&list=PLiQ766zSC5jN42O1DBalnkom5y2LXtnnK&index=7&t=0s
 //u cud consider using a heap or pointers/variables for storing first & second largest elements.
+//O(nlogn) treemap and space O(n) for map
 public class SecondLargestElement {
 
 	/*

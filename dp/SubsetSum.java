@@ -1,5 +1,9 @@
 package dp;
 
+//https://www.youtube.com/watch?v=s6FhG--P7z0
+//given a sum and set of non neg integers, find if sum can be possible by any subset 
+//approach is similar to 0/1 knapsack ecept therz no value for an item
+//every cell denotes if the sum can be formed wd a subset at that point.
 public class SubsetSum {
 
 	public boolean subsetSum(int input[], int total) {

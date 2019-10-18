@@ -2,6 +2,7 @@ package dp;
 
 //https://www.youtube.com/watch?v=iOaRjDT0vjc&list=PLiQ766zSC5jM2OKVr8sooOuGgZkvnOCTI&index=2
 //least amount of drops to guarantee a pivotal floor.
+//O(totalfloors*total eggs)
 //https://www.geeksforgeeks.org/egg-dropping-puzzle-dp-11/
 //https://github.com/mission-peace/interview/blob/master/src/com/interview/dynamic/EggDropping.java
 public class EggDroppingProblem {
@@ -17,8 +18,8 @@ public class EggDroppingProblem {
 	 */
 	static int eggDrop(int n, int k) {
 		/*
-		 * A 2D table where entry eggFloor[i][j] will represent minimum number of
-		 * trials needed for i eggs and j floors.
+		 * A 2D table where entry eggFloor[i][j] will represent minimum number of trials
+		 * needed for i eggs and j floors.
 		 */
 		int eggFloor[][] = new int[n + 1][k + 1];
 		int res;
@@ -40,6 +41,7 @@ public class EggDroppingProblem {
 			for (j = 2; j <= k; j++) {
 				eggFloor[i][j] = Integer.MAX_VALUE;
 				for (x = 1; x <= j; x++) {
+					// if it breaks(gobup) and it doesnt break(go down)
 					res = 1 + max(eggFloor[i - 1][x - 1], eggFloor[i][j - x]);
 					if (res < eggFloor[i][j])
 						eggFloor[i][j] = res;

@@ -3,7 +3,7 @@ package sorting;
 import java.util.Arrays;
 
 //https://www.techiedelight.com/find-triplet-maximum-product-array/
-//Do a sort on the array & check for product of last 3 elements or first 2 & last elemet if array has negative numbers.
+//Do a sort on the array & check for product of last 3 elements or first 2 & last element if array has negative numbers.
 public class TripletWithMaxProduct {
 
 	// Find a triplet having maximum product in a given array

@@ -1,5 +1,6 @@
 package strings;
 
+//O(n+m) - best case when string is made of consecutive patterns, O(n*m)- worst case 
 //https://www.techiedelight.com/replace-non-overlapping-occurrences-pattern/
 public class ReplaceNonOverlappingOccurances {
 
@@ -42,19 +43,6 @@ public class ReplaceNonOverlappingOccurances {
 
 		// terminate the resultant string
 		return new String(S).substring(0, k);
-	}
-
-	// Function to compare two Strings S and P and returns true if P is prefix of S
-	public static boolean compare2(char[] S, int k, char[] P) {
-		int i = 0;
-		while (i + k < S.length && i < P.length) {
-			if (S[i + k] != P[i]) {
-				break;
-			}
-			i++;
-		}
-
-		return i == P.length;
 	}
 
 	// In-place replace single or multiple occurrences of a pattern by a

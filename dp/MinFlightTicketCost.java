@@ -20,6 +20,7 @@ public class MinFlightTicketCost {
 		// fill lookup[] in bottom-up manner
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++) {
+				// min of direct cost and cost to reach via j
 				lookup[i] = Math.min(lookup[i], lookup[j] + cost[j][i]);
 			}
 		}

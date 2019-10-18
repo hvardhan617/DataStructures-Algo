@@ -657,11 +657,253 @@ public class LL {
 		return head;
 	}
 
+	// https://www.geeksforgeeks.org/rearrange-a-linked-list-such-that-all-even-and-odd-positioned-nodes-are-together/
+	// Rearranges given linked list
+	// such that all even positioned
+	// nodes are before odd positioned.
+	// Returns new head of linked List.
+	// https://www.youtube.com/watch?v=C_LA6SOwVTM
+	// seperately build even and odd linked lists and then connect
+	static Node rearrangeEvenOdd(Node head) {
+		// Corner case
+		if (head == null)
+			return null;
+
+		// Initialize first nodes of even and
+		// odd lists
+		Node odd = head;
+		Node even = head.next;
+
+		// Remember the first node of even list so
+		// that we can connect the even list at the
+		// end of odd list.
+		Node evenFirst = even;
+
+		while (even != null && even.next != null) {
+			odd.next = even.next;
+			odd = odd.next;
+			even.next = odd.next;
+			even = even.next;
+		}
+		odd.next = evenFirst;
+		return head;
+	}
+
+	// https://www.youtube.com/watch?v=zbQHT7ssPzE
+	static Node seperateEvenOdd(Node head) {
+		return head;
+
+	}
+
 	// https://www.techiedelight.com/rearrange-linked-list-specific-manner-linear-time/
 //	rearrangeLL
 //	
-//	//https://www.techiedelight.com/delete-every-n-nodes-linked-list-skipping-m-nodes/
+	// https://www.techiedelight.com/delete-every-n-nodes-linked-list-skipping-m-nodes/
 //	deleteNnodesSkippingMnodes
+	public static Node deleteNAfterMNodes(Node head, int m, int n) {
+		Node temp = head;
+
+		while (true) {
+
+			int i = 1;
+			while (i < m && temp != null) {
+				temp = temp.next;
+				i++;
+			}
+			Node temp1 = temp;
+			int j = 0;
+			while (j < n && temp != null) {
+				temp = temp.next;
+				j++;
+			}
+			if (temp1 != null && temp != null) {
+				temp1.next = temp.next;
+				temp = temp.next;
+			} else {
+				break;
+			}
+
+		}
+		return head;
+	}
+
+	// https://www.geeksforgeeks.org/check-if-a-linked-list-is-circular-linked-list/
+	public static boolean checkForCircularLL(Node root) {
+
+		Node temp = root;
+		while (temp != null) {
+			if (temp.next == root) {
+				return true;
+			}
+			temp = temp.next;
+		}
+		return false;
+	}
+
+	// https://www.geeksforgeeks.org/swap-nodes-in-a-linked-list-without-swapping-data/
+	public static Node swapLinkWithoutSwappingData(Node head, int a, int b) {
+		Node temp = head;
+
+		while (temp.next != null && temp.next.data != a) {
+			temp = temp.next;
+		}
+		Node prev_a = temp;
+		Node node_a = temp.next;
+
+		while (temp.next != null && temp.next.data != b) {
+			temp = temp.next;
+		}
+
+		Node prev_b = temp;
+		Node node_b = temp.next;
+
+		// in case of adjacent nodes
+		if (node_a.next.data == b) {
+			Node temp_b = node_b.next;
+			prev_a.next = node_b;
+			node_b.next = node_a;
+			node_a.next = temp_b;
+		} else {
+
+			Node temp_b = node_b.next;
+			prev_a.next = node_b;
+			node_b.next = node_a.next;
+			prev_b.next = node_a;
+			node_a.next = temp_b;
+		}
+
+		return head;
+	}
+
+	// https://www.geeksforgeeks.org/count-rotations-sorted-rotated-linked-list/
+	// search for a node whose next is smaller than its value
+
+	// https://www.geeksforgeeks.org/sort-linked-list-already-sorted-absolute-values/
+	// O(nlogn) using merge sort
+	// O(n) - efficient An important observation is, all negative elements are
+	// present in reverse order. So we traverse the list, whenever we find an
+	// element that is out of order, we move it to the front of linked list.
+	// To sort a linked list by actual values.
+	// The list is assumed to be sorted by absolute
+	// values.
+	Node sortedList(Node head) {
+		// Initialize previous and current nodes
+		Node prev = head;
+		Node curr = head.next;
+
+		// Traverse list
+		while (curr != null) {
+			// If curr is smaller than prev, then
+			// it must be moved to head
+			if (curr.data < prev.data) {
+				// Detach curr from linked list
+				prev.next = curr.next;
+
+				// Move current node to beginning
+				curr.next = head;
+				head = curr;
+
+				// Update current
+				curr = prev;
+			}
+
+			// Nothing to do if current element
+			// is at right place
+			else
+				prev = curr;
+
+			// Move current
+			curr = curr.next;
+		}
+		return head;
+	}
+
+	// https://www.geeksforgeeks.org/find-length-of-loop-in-linked-list/
+	// Returns count of nodes present in loop.
+	static int countNodes(Node n) {
+		int res = 1;
+		Node temp = n;
+		while (temp.next != n) {
+			res++;
+			temp = temp.next;
+		}
+		return res;
+	}
+
+	/*
+	 * This function detects and counts loop nodes in the list. If loop is not there
+	 * in then returns 0
+	 */
+	static int countNodesinLoop(Node list) {
+		Node slow_p = list, fast_p = list;
+
+		while (slow_p != null && fast_p != null && fast_p.next != null) {
+			slow_p = slow_p.next;
+			fast_p = fast_p.next.next;
+
+			/*
+			 * If slow_p and fast_p meet at some point then there is a loop
+			 */
+			if (slow_p == fast_p)
+				return countNodes(slow_p);
+		}
+
+		/* Return 0 to indeciate that ther is no loop */
+		return 0;
+	}
+
+	// https://www.geeksforgeeks.org/rotate-a-linked-list/
+	// To rotate the linked list, we need to change next of kth node to NULL, next
+	// of the last node to the previous head node, and finally, change head to
+	// (k+1)th node. So we need to get hold of three nodes: kth node, (k+1)th node
+	// and last node.
+	// Traverse the list from the beginning and stop at kth node. Store pointer to
+	// kth node. We can get (k+1)th node using kthNode->next. Keep traversing till
+	// the end and store pointer to last node also. Finally, change pointers as
+	// stated above.
+	public static void rotateAntiClockwise(Node head, int k) {
+
+		if (k == 0)
+			return;
+
+		// Let us understand the below code for example k = 4
+		// and list = 10->20->30->40->50->60.
+		Node current = head;
+
+		// current will either point to kth or NULL after this
+		// loop. current will point to node 40 in the above example
+		int count = 1;
+		while (count < k && current != null) {
+			current = current.next;
+			count++;
+		}
+
+		// If current is NULL, k is greater than or equal to count
+		// of nodes in linked list. Don't change the list in this case
+		if (current == null)
+			return;
+
+		// current points to kth node. Store it in a variable.
+		// kthNode points to node 40 in the above example
+		Node kthNode = current;
+
+		// current will point to last node after this loop
+		// current will point to node 60 in the above example
+		while (current.next != null)
+			current = current.next;
+
+		// Change next of last node to previous head
+		// Next of 60 is now changed to node 10
+
+		current.next = head;
+
+		// Change head to (k+1)th node
+		// head is now changed to node 50
+		head = kthNode.next;
+
+		// change next of kth node to null
+		kthNode.next = null;
+	}
 
 	public static void main(String args[]) {
 		Node head = new Node(10);
@@ -723,7 +965,36 @@ public class LL {
 		h1.next.next.next.next.next = new Node(2);
 		h1.next.next.next.next.next.next = new Node(1);
 
-		System.out.println(list.checkPalindromicLL(h1));
+		Node h2 = new Node(1);
+		h2.next = new Node(2);
+		h2.next.next = new Node(3);
+		h2.next.next.next = new Node(4);
+		h2.next.next.next.next = new Node(5);
+		h2.next.next.next.next.next = new Node(6);
+		h2.next.next.next.next.next.next = new Node(7);
+		h2.next.next.next.next.next.next.next = new Node(8);
+		h2.next.next.next.next.next.next.next.next = new Node(9);
+		h2.next.next.next.next.next.next.next.next.next = new Node(10);
+
+//		System.out.println(list.checkPalindromicLL(h1));
+//		h2 = deleteNAfterMNodes(h2, 3, 2);
+//		print(h2);
+
+		/* Start with the empty list */
+		Node h3 = new Node(1);
+		h3.next = new Node(2);
+		h3.next.next = new Node(3);
+		h3.next.next.next = new Node(4);
+
+//		System.out.print(checkForCircularLL(head) ? "Yes\n" : "No\n");
+
+		// Making linked list circular
+		head.next.next.next.next = head;
+
+//		System.out.print(checkForCircularLL(head) ? "Yes\n" : "No\n");
+
+		h2 = swapLinkWithoutSwappingData(h2, 3, 4);
+		print(h2);
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.Arrays;
 //https://www.techiedelight.com/sort-array-containing-0s-1s-2s-dutch-national-flag-problem/
 //https://www.youtube.com/watch?v=BOt1DAvR0zI
 //Choose 1 as pivot
+//O(n) and constant space
 public class DutchNationalFlagProblem {
 
 	// Linear-time partition routine to sort an array containing 0, 1 and 2

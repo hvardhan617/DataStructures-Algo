@@ -2,6 +2,9 @@ package dp;
 
 //https://www.youtube.com/watch?v=8LusJS5-AGo&list=PLrmLmBdmIlpsHaNTPP_jHHDx_os9ItYXr
 //https://www.techiedelight.com/0-1-knapsack-problem/
+//every cell in the tabulation gives max value possible with items n capacity at that point in the matrix
+//max ( up / current & up & back)
+//end goal is to find max value for items within given capacity.
 public class Zero1Knapsack {
 
 	// Input:
@@ -15,9 +18,12 @@ public class Zero1Knapsack {
 		int[][] T = new int[v.length + 1][W + 1];
 
 		// do for ith item
-		for (int i = 1; i <= v.length; i++) {
-			// consider all weights from 0 to maximum capacity W
+		for (int i = 0; i <= v.length; i++) {
 			for (int j = 0; j <= W; j++) {
+				if (i == 0 || j == 0) {
+					T[i][j] = 0;
+					continue;
+				}
 				// don't include ith element if j-w[i-1] is negative
 				if (w[i - 1] > j) {
 					T[i][j] = T[i - 1][j];
@@ -30,6 +36,12 @@ public class Zero1Knapsack {
 		}
 
 		// return maximum value
+
+		for (int i = 0; i < T.length; i++) {
+			for (int j = 0; j < T[0].length; j++) {
+				System.out.println(T[i][j]);
+			}
+		}
 		return T[v.length][W];
 	}
 

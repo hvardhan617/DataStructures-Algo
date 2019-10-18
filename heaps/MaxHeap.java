@@ -1,6 +1,9 @@
 package heaps;
 
 //Java program to implement Max Heap 
+//https://www.geeksforgeeks.org/max-heap-in-java/
+//https://www.youtube.com/watch?v=HqPJF2L5h9U
+//https://algorithms.tutorialhorizon.com/binary-min-max-heap/
 public class MaxHeap {
 	private int[] Heap;
 	private int size;
@@ -50,13 +53,14 @@ public class MaxHeap {
 	// subtree. This function assumes that the left and
 	// right subtrees are already heapified, we only need
 	// to fix the root.
+	// O(n)
 	private void maxHeapify(int pos) {
 
 		// if it is a leaf node then simply return(during first element insertion)
 		if (isLeaf(pos))
 			return;
 
-		// if any of its children are greater than itself, we need to swap it wd the
+		// if any of its children are greater than itself, we need to swap it with the
 		// respective child and bubble it up as root recursively
 		if (Heap[pos] < Heap[leftChild(pos)] || Heap[pos] < Heap[rightChild(pos)]) {
 
@@ -71,10 +75,13 @@ public class MaxHeap {
 	}
 
 	// Inserts a new element to max heap (heapifyUp - insertion)
+	// In worst case, the element needs to be swapped all along the height ,height
+	// of a complete binary tree = log(n),hence the time complexity
+	// O(logN)max & min O(1) for each element , hence nlogn for n elements
 	public void insert(int element) {
 
 		size = size + 1;
-		Heap[size] = element;
+		Heap[size] = element; // insert element at last index to maintain it as a complete BT
 
 		// Traverse up and fix violated property
 		int current = size;
@@ -93,8 +100,9 @@ public class MaxHeap {
 	}
 
 	// Remove an element from max heap
+	// O(logN)==height of tree , nlogn
 	public int extractMax() {
-		int popped = Heap[1];
+		int popped = Heap[1];// pop element at 1st index
 		size = size - 1;
 		// replace top of tree/array with last element in array or complete tree
 		Heap[1] = Heap[size];

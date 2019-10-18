@@ -23,6 +23,8 @@ class Pair<U, V> {
 	}
 }
 
+//store char:<count,lastOccurance> map,
+//iterate the map and find character with count 1 and min Index in map
 public class FirstNonRepeatingCharacterInSIngleTraversal {
 
 	// Function to find the first non-repeating character in
